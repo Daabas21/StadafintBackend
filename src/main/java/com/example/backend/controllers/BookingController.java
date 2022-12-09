@@ -1,7 +1,7 @@
 package com.example.backend.controllers;
 
-import com.example.backend.entities.Cleaner;
-import com.example.backend.repositories.CleanerRepo;
+import com.example.backend.entities.Booking;
+import com.example.backend.repositories.BookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,15 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/cleaner")
-public class CleanerController {
+@RequestMapping("/booking")
+public class BookingController {
 
     @Autowired
-    CleanerRepo cleanerRepo;
+    BookingRepo bookingRepo;
 
     @GetMapping
-    public List<Cleaner> findAll() {
-        return cleanerRepo.findAll();
+    public List<Booking> findAll(){
+        return bookingRepo.findAll();
     }
+
 }
