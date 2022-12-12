@@ -11,22 +11,22 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "kund")
-public class Kund {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "kund_id")
+    @Column(name = "customer_id")
     private int id;
-    @Column(name = "kund_name")
+    @Column(name = "customer_name")
     private String name;
-    @Column(name = "kund_address")
+    @Column(name = "customer_address")
     private String address;
-    @Column(name = "kund_telnum")
+    @Column(name = "customer_telnum")
     private String telnum;
-    @Column(name = "kund_email")
+    @Column(name = "customer_email")
     private String email;
-    @Column(name = "kund_password")
+    @Column(name = "customer_password")
     private String password;
 
 }

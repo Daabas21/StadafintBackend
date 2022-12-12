@@ -23,8 +23,8 @@ public class Booking {
     private int bookingId;
     @Column(name = "cleaner_id")
     private int cleanerId;
-    @Column(name = "kund_id")
-    private int kundId;
+    @Column(name = "customer_id")
+    private int customerId;
     @Column(name = "booking_description")
     private String description;
     @Column(name = "booking_address")

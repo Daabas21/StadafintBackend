@@ -21,11 +21,19 @@ public class Cleaner {
     @Column(name = "cleaner_name")
     private String name;
     @Column(name = "cleaner_address")
-    private String adrress;
+    private String address;
     @Column(name = "cleaner_telnum")
     private String telnum;
     @Column(name = "cleaner_email")
     private String email;
     @Column(name = "cleaner_password")
     private String password;
+
+    public Cleaner(String name, String address, String telnum, String email, String password) {
+        this.name = name;
+        this.address = address;
+        this.telnum = telnum;
+        this.email = email;
+        this.password = password;
+    }
 }

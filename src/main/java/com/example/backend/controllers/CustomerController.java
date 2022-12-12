@@ -1,7 +1,7 @@
 package com.example.backend.controllers;
 
-import com.example.backend.entities.Kund;
-import com.example.backend.repositories.KundRepo;
+import com.example.backend.entities.Customer;
+import com.example.backend.repositories.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/kund")
-public class KundController {
+@RequestMapping("/customer")
+public class CustomerController {
 
     @Autowired
-    KundRepo kundRepo;
+    CustomerRepo customerRepo;
 
     @GetMapping
-    public List<Kund> findAll(){
-        return kundRepo.findAll();
+    public List<Customer> findAll(){
+        return customerRepo.findAll();
     }
 }
