@@ -35,5 +35,9 @@ public class Booking {
     private Time time;
     @Column(name = "booking_status")
     private String status;
+    @Column(name= "working_time")
+    private float workingTime;
+    @Column(name = "service")
+    private String service;
 
 }
