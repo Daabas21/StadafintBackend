@@ -22,7 +22,7 @@ public class CleanerService {
         return cleanerRepo.findById(id).orElseThrow();
     }
 
-    public Cleaner inserNewCleaner(Cleaner cleaner) {
+    public Cleaner insertNewCleaner(Cleaner cleaner) {
 
         return cleanerRepo.save(cleaner);
     }
