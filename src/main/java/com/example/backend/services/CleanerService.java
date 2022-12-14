@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CleanerService {
@@ -32,11 +33,21 @@ public class CleanerService {
         Cleaner existingCleaner = cleanerRepo.findById(id).orElseThrow();
 
         if (cleaner != null) {
-            existingCleaner.setName(cleaner.getName());
-            existingCleaner.setAddress(cleaner.getAddress());
-            existingCleaner.setTelnum(cleaner.getTelnum());
-            existingCleaner.setEmail(cleaner.getEmail());
-            existingCleaner.setPassword(cleaner.getPassword());
+            if (!cleaner.getName().equals("")) {
+                existingCleaner.setName(cleaner.getName());
+            }
+            if (!cleaner.getAddress().equals("")) {
+                existingCleaner.setAddress(cleaner.getAddress());
+            }
+            if (!cleaner.getTelnum().equals("")) {
+                existingCleaner.setTelnum(cleaner.getTelnum());
+            }
+            if (!cleaner.getEmail().equals("")) {
+                existingCleaner.setEmail(cleaner.getEmail());
+            }
+            if (!cleaner.getPassword().equals("")) {
+                existingCleaner.setPassword(cleaner.getPassword());
+            }
         }
 
         return cleanerRepo.save(existingCleaner);
