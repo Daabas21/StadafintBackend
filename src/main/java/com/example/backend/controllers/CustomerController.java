@@ -1,7 +1,9 @@
 package com.example.backend.controllers;
 
+import com.example.backend.entities.Booking;
 import com.example.backend.entities.Customer;
-import com.example.backend.repositories.CustomerRepo;
+
+import com.example.backend.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +15,38 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    CustomerRepo customerRepo;
+    CustomerService customerService;
 
     @GetMapping
-    public List<Customer> findAllCustomers(){
-        return customerRepo.findAllCustomers();
+    public List<Customer> findAll(){
+        return customerService.findAllCustomers();
+    }
+
+    @GetMapping("/{id}")
+    public Customer findById(@PathVariable int id) {
+        return customerService.findById(id);
+    }
+
+    @GetMapping("/{id}/booking")
+    public List<Booking> findCustomerBookingsById(@PathVariable int id) {
+        return customerService.findCustomerBookingsById(id);
+    }
+
+    @PostMapping
+    public Customer insertNewCustomer(@RequestBody Customer customer) {
+        return customerService.insertNewCustomer(customer);
     }
 
     @PostMapping
     public Customer registerUser(@RequestBody Customer customer){
-        return customerRepo.registerUser(customer);
+        return customerService.registerUser(customer);
     }
+
+
+    @PutMapping("/{id}")
+    public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer){
+        return customerService.updateCustomerById(id, customer);
+    }
+
 
 }

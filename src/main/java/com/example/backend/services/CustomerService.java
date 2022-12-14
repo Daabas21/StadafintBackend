@@ -14,33 +14,44 @@ public class CustomerService {
 
     @Autowired
     CustomerRepo customerRepo;
+
     @Autowired
     BookingRepo bookingRepo;
 
-    public List <Customer> findAllCustomers(){
-        return customerRepo.findAllCustomers();
+    public List<Customer> findAllCustomers() {
+        return customerRepo.findAll();
     }
 
-    public Customer findCustomerById(int id){return customerRepo.findById(id).orElseThrow();}
+    public Customer findById(int id) {
+        return customerRepo.findById(id).orElseThrow();
+    }
 
-    public Customer insertNewCustomer(Customer customer){
+    public Customer insertNewCustomer(Customer customer) {
         return customerRepo.save(customer);
     }
 
-    public Customer updateCustomerById(int id, Customer customer){
+    public Customer updateCustomerById(int id, Customer customer) {
+
         Customer existingCustomer = customerRepo.findById(id).orElseThrow();
 
-        if (customer!=null){
+        if(customer != null) {
             existingCustomer.setName(customer.getName());
             existingCustomer.setAddress(customer.getAddress());
-            existingCustomer.setTelnum(customer.getTelnum());
             existingCustomer.setEmail(customer.getEmail());
+            existingCustomer.setTelnum(customer.getTelnum());
             existingCustomer.setPassword(customer.getPassword());
         }
 
-        return  customerRepo.save(existingCustomer);
+        return customerRepo.save(existingCustomer);
+
     }
 
-    public List<Booking> findCustomerBookings(int id){return bookingRepo.findByCustomerId(id);}
+    public List<Booking> findCustomerBookingsById(int id) {
+        return bookingRepo.findByCustomerId(id);
+    }
 
+    public Customer registerUser(Customer customer) {
+
+        return customer;//TODO fix metod
+    }
 }
