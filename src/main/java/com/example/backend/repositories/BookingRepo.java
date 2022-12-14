@@ -10,4 +10,6 @@ import java.util.List;
 public interface BookingRepo extends JpaRepository<Booking, Integer> {
 
     List<Booking> findByCleanerId(int id);
+
+    List<Booking> findByCustomerId(int id);
 }
