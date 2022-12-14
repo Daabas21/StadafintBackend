@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer, Integer> {
-    Customer registerUser(Customer customer);
-
-    List<Customer> findAllCustomers();
 }
