@@ -23,7 +23,7 @@ public class CleanerController {
 
     @PostMapping
     public Cleaner insertNewCleaner(@RequestBody Cleaner cleaner) {
-        return cleanerService.inserNewCleaner(cleaner);
+        return cleanerService.insertNewCleaner(cleaner);
     }
 
     @PutMapping("/{id}")
