@@ -2,7 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.entities.Booking;
 import com.example.backend.entities.Customer;
-import com.example.backend.repositories.CustomerRepo;
+
 import com.example.backend.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +36,12 @@ public class CustomerController {
     public Customer insertNewCustomer(@RequestBody Customer customer) {
         return customerService.insertNewCustomer(customer);
     }
+
+    @PostMapping
+    public Customer registerUser(@RequestBody Customer customer){
+        return customerService.registerUser(customer);
+    }
+
 
     @PutMapping("/{id}")
     public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer){

@@ -50,4 +50,8 @@ public class CustomerService {
         return bookingRepo.findByCustomerId(id);
     }
 
+    public Customer registerUser(Customer customer) {
+
+        return customer;//TODO fix metod
+    }
 }
