@@ -29,6 +29,10 @@ public class Cleaner {
     @Column(name = "cleaner_password")
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     public Cleaner(String name, String address, String telnum, String email, String password) {
         this.name = name;
         this.address = address;

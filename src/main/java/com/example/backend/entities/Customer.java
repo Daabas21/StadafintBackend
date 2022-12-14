@@ -29,4 +29,8 @@ public class Customer {
     @Column(name = "customer_password")
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
 }
