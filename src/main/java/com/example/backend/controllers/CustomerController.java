@@ -37,11 +37,6 @@ public class CustomerController {
         return customerService.insertNewCustomer(customer);
     }
 
-//    @PostMapping
-//    public Customer registerUser(@RequestBody Customer customer){
-//        return customerService.registerUser(customer);
-//    }
-
 
     @PutMapping("/{id}")
     public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer){
