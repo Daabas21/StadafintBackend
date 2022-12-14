@@ -3,10 +3,7 @@ package com.example.backend.controllers;
 import com.example.backend.entities.Customer;
 import com.example.backend.repositories.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +16,13 @@ public class CustomerController {
     CustomerRepo customerRepo;
 
     @GetMapping
-    public List<Customer> findAll(){
-        return customerRepo.findAll();
+    public List<Customer> findAllCustomers(){
+        return customerRepo.findAllCustomers();
     }
+
+    @PostMapping
+    public Customer registerUser(@RequestBody Customer customer){
+        return customerRepo.registerUser(customer);
+    }
+
 }
