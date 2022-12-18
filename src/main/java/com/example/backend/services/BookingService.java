@@ -31,4 +31,7 @@ public class BookingService {
     }
 
 
+    public void deleteBooking(int id){
+        bookingRepo.deleteById(id);
+    }
 }
