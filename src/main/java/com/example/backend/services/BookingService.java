@@ -25,9 +25,9 @@ public class BookingService {
         return bookingRepo.save(booking);
     }
 
-    //TODO - Annika, fill in with needed data
+
     public Booking updateBookingById(int id, Booking booking) {
-        return booking;
+        return bookingRepo.save(booking);
     }
 
 

@@ -57,4 +57,6 @@ public class CleanerService {
         return bookingRepo.findByCleanerId(id);
     }
 
+    public List<Cleaner> findAllCleaners() { return cleanerRepo.findAll();
+    }
 }
