@@ -17,7 +17,7 @@ public class LoginController {
     @Autowired private LoginService loginService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerCustomer(@RequestBody Customer customer){
+    public ResponseEntity<?> registerCustomer(@RequestBody Customer customer){
         return loginService.registerCustomer(customer);
     }
 

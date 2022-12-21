@@ -28,10 +28,12 @@ public class LoginService {
     }
 
 
-    public ResponseEntity<String> registerCustomer(Customer customer) {
+    public ResponseEntity<?> registerCustomer(Customer customer) {
         //        String encodedPass = passwordEncoder.encode(customer.getPassword());
 //        customer.setPassword(encodedPass);
+        Customer existingCustomer = customerRepo.findCustomerByEmail(customer.getEmail()).orElseThrow();
         customer = customerRepo.save(customer);
+
         String token = jwtUtils.generateToken(customer.getEmail());
         return ResponseEntity.ok(token);
     }
