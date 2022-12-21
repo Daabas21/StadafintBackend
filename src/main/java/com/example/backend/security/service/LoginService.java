@@ -29,45 +29,25 @@ public class LoginService {
 
 
     public ResponseEntity<?> registerCustomer(Customer customer) {
+
         customerRepo.save(customer);
-         String token = jwtUtils.generateToken(customer.getEmail());
-        return ResponseEntity.ok().body(new StringToken(token));
-
-
-        /*
-        //        String encodedPass = passwordEncoder.encode(customer.getPassword());
-//        customer.setPassword(encodedPass);
-        Customer existingCustomerEmail = customerRepo.findCustomerByEmail(customer.getEmail()).orElseThrow();
-        Customer existingCustomerTelnum = customerRepo.findCustomerByTelnum(customer.getTelnum()).orElseThrow();
-
-        System.out.println(existingCustomerEmail);
-        System.out.println(existingCustomerTelnum);
-
-
-        customer = customerRepo.save(customer);
-        if (customer != null){
-            System.out.println(customer);
         String token = jwtUtils.generateToken(customer.getEmail());
-        return ResponseEntity.ok().body("registered");
 
-        }else
-            return ResponseEntity.status(401).body("something wrong");
-
-         */
+        return ResponseEntity.ok().body(new StringToken(token));
     }
 
     public ResponseEntity<?> authenticate(String email, String password) {
 
-        try{
+        try {
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-        if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            String token = jwtUtils.generateToken(email);
-            return ResponseEntity.ok().body(new StringToken(token));
-        } else {
-            return ResponseEntity.status(401).body("password incorrect");
-        }
+            if (passwordEncoder.matches(password, userDetails.getPassword())) {
+                String token = jwtUtils.generateToken(email);
+                return ResponseEntity.ok().body(new StringToken(token));
+            } else {
+                return ResponseEntity.status(401).body("password incorrect");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(401).body("Email not registered");
         }
