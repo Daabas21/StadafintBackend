@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class LoginController {
 
     @Autowired private LoginService loginService;
@@ -22,7 +22,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticate(@RequestBody LoginDto jwtDTO){
+    public ResponseEntity<?> authenticate(@RequestBody LoginDto jwtDTO){
+        System.out.println(jwtDTO);
         return loginService.authenticate(jwtDTO.email(), jwtDTO.password());
     }
 

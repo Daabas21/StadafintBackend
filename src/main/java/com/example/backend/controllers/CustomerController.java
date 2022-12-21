@@ -5,6 +5,7 @@ import com.example.backend.entities.Customer;
 
 import com.example.backend.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable int id) {
-        return customerService.findById(id);
+    public Customer findById(@PathVariable int id, Authentication auth) {
+        return customerService.findById(id, auth);
     }
 
     @GetMapping("/{id}/booking")

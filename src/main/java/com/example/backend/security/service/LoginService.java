@@ -2,6 +2,7 @@ package com.example.backend.security.service;
 
 import com.example.backend.entities.Customer;
 import com.example.backend.repositories.CustomerRepo;
+import com.example.backend.entities.StringToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,14 +36,15 @@ public class LoginService {
         return ResponseEntity.ok(token);
     }
 
-    public ResponseEntity<String> authenticate(String email, String password) {
+    public ResponseEntity<?> authenticate(String email, String password) {
 
         try{
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            return ResponseEntity.ok(jwtUtils.generateToken(email));
+            String token = jwtUtils.generateToken(email);
+            return ResponseEntity.ok().body(new StringToken(token));
         } else {
             return ResponseEntity.status(401).body("password incorrect");
         }
