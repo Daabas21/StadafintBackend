@@ -5,10 +5,11 @@ import com.example.backend.entities.Cleaner;
 import com.example.backend.repositories.BookingRepo;
 import com.example.backend.repositories.CleanerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CleanerService {
@@ -19,8 +20,20 @@ public class CleanerService {
     @Autowired
     BookingRepo bookingRepo;
 
-    public Cleaner findById(int id) {
-        return cleanerRepo.findById(id).orElseThrow();
+    public int cleanerId(Authentication auth){
+        String cleanerEmail = ((Cleaner) auth.getPrincipal()).getEmail();
+        Cleaner cleaner = cleanerRepo.findCleanerByEmail(cleanerEmail).orElseThrow();
+
+        return  cleaner.getId();
+    }
+
+    public Cleaner findById(int id, Authentication auth) {
+        int cleanerId = cleanerId(auth);
+//
+        if (id == cleanerId) {
+            return cleanerRepo.findById(id).orElseThrow();
+        }else
+            return cleanerRepo.findById(cleanerId).orElseThrow();
     }
 
     public Cleaner insertNewCleaner(Cleaner cleaner) {
@@ -28,9 +41,9 @@ public class CleanerService {
         return cleanerRepo.save(cleaner);
     }
 
-    public Cleaner updateCleanerById(int id, Cleaner cleaner) {
-
-        Cleaner existingCleaner = cleanerRepo.findById(id).orElseThrow();
+    public Cleaner updateCleanerById(int id, Cleaner cleaner, Authentication auth) {
+        int cleanerId = cleanerId(auth);
+        Cleaner existingCleaner = cleanerRepo.findById(cleanerId).orElseThrow();
 
         if (cleaner != null) {
             if (!cleaner.getName().equals("")) {
@@ -57,6 +70,7 @@ public class CleanerService {
         return bookingRepo.findByCleanerId(id);
     }
 
-    public List<Cleaner> findAllCleaners() { return cleanerRepo.findAll();
+    public List<Cleaner> findAllCleaners() {
+        return cleanerRepo.findAll();
     }
 }

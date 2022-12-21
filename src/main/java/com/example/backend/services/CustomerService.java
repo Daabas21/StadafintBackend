@@ -5,6 +5,7 @@ import com.example.backend.entities.Customer;
 import com.example.backend.repositories.BookingRepo;
 import com.example.backend.repositories.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +23,18 @@ public class CustomerService {
         return customerRepo.findAll();
     }
 
-    public Customer findById(int id) {
-        return customerRepo.findById(id).orElseThrow();
+    public Customer findById(int id, Authentication auth) {
+
+        String customerEmail = ((Customer)auth.getPrincipal()).getEmail();
+        Customer customer = customerRepo.findCustomerByEmail(customerEmail).orElseThrow();
+
+        int customerId = customer.getId();
+        if (id == customerId){
+            return customerRepo.findById(id).orElseThrow();
+        }else{
+            return customerRepo.findById(customerId).orElseThrow();
+        }
+
     }
 
     public Customer insertNewCustomer(Customer customer) {
