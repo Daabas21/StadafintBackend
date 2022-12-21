@@ -46,11 +46,21 @@ public class CustomerService {
         Customer existingCustomer = customerRepo.findById(id).orElseThrow();
 
         if(customer != null) {
+            if (!customer.getName().equals("")){
             existingCustomer.setName(customer.getName());
+            }
+            if (!customer.getAddress().equals("")){
             existingCustomer.setAddress(customer.getAddress());
+            }
+            if (!customer.getEmail().equals("")) {
             existingCustomer.setEmail(customer.getEmail());
+            }
+            if (!customer.getTelnum().equals("")){
             existingCustomer.setTelnum(customer.getTelnum());
+            }
+            if (!customer.getPassword().equals("")){
             existingCustomer.setPassword(customer.getPassword());
+            }
         }
 
         return customerRepo.save(existingCustomer);
