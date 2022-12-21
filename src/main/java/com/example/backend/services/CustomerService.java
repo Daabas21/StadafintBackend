@@ -19,19 +19,23 @@ public class CustomerService {
     @Autowired
     BookingRepo bookingRepo;
 
+    public int customerId(Authentication auth){
+        String customerEmail = ((Customer) auth.getPrincipal()).getEmail();
+        Customer customer = customerRepo.findCustomerByEmail(customerEmail).orElseThrow();
+
+        return  customer.getId();
+    }
+
     public List<Customer> findAllCustomers() {
         return customerRepo.findAll();
     }
 
     public Customer findById(int id, Authentication auth) {
 
-        String customerEmail = ((Customer)auth.getPrincipal()).getEmail();
-        Customer customer = customerRepo.findCustomerByEmail(customerEmail).orElseThrow();
-
-        int customerId = customer.getId();
-        if (id == customerId){
+        int customerId = customerId(auth);
+        if (id == customerId) {
             return customerRepo.findById(id).orElseThrow();
-        }else{
+        } else {
             return customerRepo.findById(customerId).orElseThrow();
         }
 
@@ -41,25 +45,26 @@ public class CustomerService {
         return customerRepo.save(customer);
     }
 
-    public Customer updateCustomerById(int id, Customer customer) {
+    public Customer updateCustomerById(int id, Customer customer, Authentication auth) {
 
-        Customer existingCustomer = customerRepo.findById(id).orElseThrow();
+        int customerId = customerId(auth);
+        Customer existingCustomer = customerRepo.findById(customerId).orElseThrow();
 
-        if(customer != null) {
-            if (!customer.getName().equals("")){
-            existingCustomer.setName(customer.getName());
+        if (customer != null) {
+            if (!customer.getName().equals("")) {
+                existingCustomer.setName(customer.getName());
             }
-            if (!customer.getAddress().equals("")){
-            existingCustomer.setAddress(customer.getAddress());
+            if (!customer.getAddress().equals("")) {
+                existingCustomer.setAddress(customer.getAddress());
             }
             if (!customer.getEmail().equals("")) {
-            existingCustomer.setEmail(customer.getEmail());
+                existingCustomer.setEmail(customer.getEmail());
             }
-            if (!customer.getTelnum().equals("")){
-            existingCustomer.setTelnum(customer.getTelnum());
+            if (!customer.getTelnum().equals("")) {
+                existingCustomer.setTelnum(customer.getTelnum());
             }
-            if (!customer.getPassword().equals("")){
-            existingCustomer.setPassword(customer.getPassword());
+            if (!customer.getPassword().equals("")) {
+                existingCustomer.setPassword(customer.getPassword());
             }
         }
 

@@ -40,8 +40,8 @@ public class CustomerController {
 
 
     @PutMapping("/{id}")
-    public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer){
-        return customerService.updateCustomerById(id, customer);
+    public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer, Authentication auth){
+        return customerService.updateCustomerById(id, customer, auth);
     }
 
 

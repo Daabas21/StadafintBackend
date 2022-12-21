@@ -29,13 +29,31 @@ public class LoginService {
 
 
     public ResponseEntity<?> registerCustomer(Customer customer) {
+        customerRepo.save(customer);
+         String token = jwtUtils.generateToken(customer.getEmail());
+        return ResponseEntity.ok().body(new StringToken(token));
+
+
+        /*
         //        String encodedPass = passwordEncoder.encode(customer.getPassword());
 //        customer.setPassword(encodedPass);
-        Customer existingCustomer = customerRepo.findCustomerByEmail(customer.getEmail()).orElseThrow();
-        customer = customerRepo.save(customer);
+        Customer existingCustomerEmail = customerRepo.findCustomerByEmail(customer.getEmail()).orElseThrow();
+        Customer existingCustomerTelnum = customerRepo.findCustomerByTelnum(customer.getTelnum()).orElseThrow();
 
+        System.out.println(existingCustomerEmail);
+        System.out.println(existingCustomerTelnum);
+
+
+        customer = customerRepo.save(customer);
+        if (customer != null){
+            System.out.println(customer);
         String token = jwtUtils.generateToken(customer.getEmail());
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok().body("registered");
+
+        }else
+            return ResponseEntity.status(401).body("something wrong");
+
+         */
     }
 
     public ResponseEntity<?> authenticate(String email, String password) {
