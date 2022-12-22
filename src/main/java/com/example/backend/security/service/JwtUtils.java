@@ -25,7 +25,6 @@ public class JwtUtils {
     }
 
 
-    //todo
     public boolean validateToken(String token, HttpServletRequest httpServletRequest){
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
