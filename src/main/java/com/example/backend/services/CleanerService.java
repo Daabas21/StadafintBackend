@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -45,6 +44,7 @@ public class CleanerService {
         int cleanerId = cleanerId(auth);
         Cleaner existingCleaner = cleanerRepo.findById(cleanerId).orElseThrow();
 
+
         if (cleaner != null) {
             if (!cleaner.getName().equals("")) {
                 existingCleaner.setName(cleaner.getName());
@@ -61,9 +61,12 @@ public class CleanerService {
             if (!cleaner.getPassword().equals("")) {
                 existingCleaner.setPassword(cleaner.getPassword());
             }
+        return cleanerRepo.save(existingCleaner);
+        }
+        else{
+            return null;
         }
 
-        return cleanerRepo.save(existingCleaner);
     }
 
     public List<Booking> findCleanerBooking(int id) {

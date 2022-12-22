@@ -18,11 +18,6 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping
-    public List<Customer> findAll(){
-        return customerService.findAllCustomers();
-    }
-
     @GetMapping("/{id}")
     public Customer findById(@PathVariable int id, Authentication auth) {
         return customerService.findById(id, auth);
@@ -37,7 +32,6 @@ public class CustomerController {
     public Customer insertNewCustomer(@RequestBody Customer customer) {
         return customerService.insertNewCustomer(customer);
     }
-
 
     @PutMapping("/{id}")
     public Customer updateCustomerById(@PathVariable int id, @RequestBody Customer customer, Authentication auth){

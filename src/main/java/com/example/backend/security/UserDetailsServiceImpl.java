@@ -33,15 +33,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return customerRepo.findCustomerByEmail(email).orElseThrow();
         }
 
-//                customer.map(value -> User.builder()
-//                .username(value.getEmail())
-//                .password(value.getPassword())
-//                .authorities(new SimpleGrantedAuthority("CUSTOMER"))
-//                .build()).orElseGet(() -> cleaner.map(value -> User.builder()
-//                .username(value.getEmail())
-//                .password(value.getPassword())
-//                .authorities(new SimpleGrantedAuthority("ADMIN"))
-//                .build()).orElse(null));
-
     }
 }
