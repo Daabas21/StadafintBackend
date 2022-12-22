@@ -29,27 +29,25 @@ public class LoginService {
 
 
     public ResponseEntity<?> registerCustomer(Customer customer) {
-        //        String encodedPass = passwordEncoder.encode(customer.getPassword());
-//        customer.setPassword(encodedPass);
-        Customer existingCustomer = customerRepo.findCustomerByEmail(customer.getEmail()).orElseThrow();
-        customer = customerRepo.save(customer);
 
+        customerRepo.save(customer);
         String token = jwtUtils.generateToken(customer.getEmail());
-        return ResponseEntity.ok(token);
+
+        return ResponseEntity.ok().body(new StringToken(token));
     }
 
     public ResponseEntity<?> authenticate(String email, String password) {
 
-        try{
+        try {
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-        if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            String token = jwtUtils.generateToken(email);
-            return ResponseEntity.ok().body(new StringToken(token));
-        } else {
-            return ResponseEntity.status(401).body("password incorrect");
-        }
+            if (passwordEncoder.matches(password, userDetails.getPassword())) {
+                String token = jwtUtils.generateToken(email);
+                return ResponseEntity.ok().body(new StringToken(token));
+            } else {
+                return ResponseEntity.status(401).body("password incorrect");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(401).body("Email not registered");
         }
