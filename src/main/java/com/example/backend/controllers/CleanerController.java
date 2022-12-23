@@ -2,6 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.entities.Booking;
 import com.example.backend.entities.Cleaner;
+import com.example.backend.services.BookingService;
 import com.example.backend.services.CleanerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,19 +21,12 @@ public class CleanerController {
     @Autowired
     CleanerService cleanerService;
 
-    @GetMapping
-    public List<Cleaner> findAll(){
-        return cleanerService.findAllCleaners();
-    }
+    @Autowired
+    BookingService bookingService;
 
     @GetMapping("/{id}")
     public Cleaner findById(@PathVariable int id, Authentication auth){
         return cleanerService.findById(id, auth);
-    }
-
-    @PostMapping
-    public Cleaner insertNewCleaner(@RequestBody Cleaner cleaner) {
-        return cleanerService.insertNewCleaner(cleaner);
     }
 
     @PutMapping("/{id}")
