@@ -29,8 +29,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/booking")
-    public List<Booking> findCustomerBookingsById(@PathVariable int id) {
-        return customerService.findCustomerBookingsById(id);
+    public List<Booking> findCustomerBookingsById(Authentication auth) {
+        return customerService.findCustomerBookingsById(auth);
     }
 
     @PostMapping
