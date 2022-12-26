@@ -86,7 +86,7 @@ public class AdminController {
 
     @GetMapping("/customer/{id}/booking")
     public List<Booking> findCustomerBookingsById(@PathVariable int id) {
-        return customerService.findCustomerBookingsById(id);
+        return customerService.adminFindCustomerBookingsById(id);
     }
 
     @PostMapping("/customer")

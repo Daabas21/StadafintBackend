@@ -72,8 +72,14 @@ public class CustomerService {
 
     }
 
-    public List<Booking> findCustomerBookingsById(int id) {
+    public List<Booking> adminFindCustomerBookingsById(int id) {
         return bookingRepo.findByCustomerId(id);
+    }
+
+    public List<Booking> findCustomerBookingsById(Authentication auth){
+
+        int customerId = customerId(auth);
+        return bookingRepo.findByCustomerId(customerId);
     }
 
 }
