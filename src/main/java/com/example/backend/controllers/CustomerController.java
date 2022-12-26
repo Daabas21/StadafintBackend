@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @CrossOrigin
@@ -48,5 +47,9 @@ public class CustomerController {
         return bookingService.insertNewBooking(booking);
     }
 
+    @DeleteMapping("/booking/{id}")
+    public void deleteBookingById(@PathVariable int id) {
+        bookingService.deleteBooking(id);
+    }
 
 }
