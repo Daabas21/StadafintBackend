@@ -36,8 +36,13 @@ public class LoginController {
 
     @GetMapping("/details")
     public ResponseEntity<?> authDetails(Authentication auth) {
-        Cleaner cleaner = cleanerService.findAuthenticated(auth);
-        return ResponseEntity.ok(cleaner);
+        if (auth != null) {
+            Cleaner cleaner = cleanerService.findAuthenticated(auth);
+            return ResponseEntity.ok(cleaner);
+        } else {
+            return ResponseEntity.status(401).body(null);
+        }
+
     }
 
 }
