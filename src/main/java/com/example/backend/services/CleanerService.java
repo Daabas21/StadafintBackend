@@ -36,11 +36,6 @@ public class CleanerService {
             return cleanerRepo.findById(cleanerId).orElseThrow();
     }
 
-    public Cleaner findAuthenticated(Authentication auth) {
-        int cleanerId = cleanerId(auth);
-        return cleanerRepo.findById(cleanerId).orElseThrow();
-    }
-
     public Cleaner insertNewCleaner(Cleaner cleaner) {
 
         return cleanerRepo.save(cleaner);
