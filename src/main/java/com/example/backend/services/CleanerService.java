@@ -28,11 +28,17 @@ public class CleanerService {
 
     public Cleaner findById(int id, Authentication auth) {
         int cleanerId = cleanerId(auth);
+        System.out.println(cleanerId);
 //
         if (id == cleanerId) {
             return cleanerRepo.findById(id).orElseThrow();
         }else
             return cleanerRepo.findById(cleanerId).orElseThrow();
+    }
+
+    public Cleaner findAuthenticated(Authentication auth) {
+        int cleanerId = cleanerId(auth);
+        return cleanerRepo.findById(cleanerId).orElseThrow();
     }
 
     public Cleaner insertNewCleaner(Cleaner cleaner) {
