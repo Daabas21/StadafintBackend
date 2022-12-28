@@ -38,4 +38,9 @@ public class CleanerController {
     public List<Booking> findCleanerBooking(@PathVariable int id){
         return cleanerService.findCleanerBooking(id);
     }
+
+    @PutMapping("/{id}/booking")
+    public  Booking updateBookingByBookingId(@PathVariable int id) {
+        return cleanerService.updateBookingByBookingId(id);
+    }
 }
