@@ -2,6 +2,7 @@ package com.example.backend.services;
 
 import com.example.backend.entities.Booking;
 import com.example.backend.entities.Cleaner;
+import com.example.backend.entities.Role;
 import com.example.backend.repositories.BookingRepo;
 import com.example.backend.repositories.CleanerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class CleanerService {
     @Autowired
     BookingRepo bookingRepo;
 
-    public int cleanerId(Authentication auth){
+    public int cleanerId(Authentication auth) {
         String cleanerEmail = ((Cleaner) auth.getPrincipal()).getEmail();
         Cleaner cleaner = cleanerRepo.findCleanerByEmail(cleanerEmail).orElseThrow();
 
-        return  cleaner.getId();
+        return cleaner.getId();
     }
 
     public Cleaner findById(int id, Authentication auth) {
@@ -32,7 +33,7 @@ public class CleanerService {
 //
         if (id == cleanerId) {
             return cleanerRepo.findById(id).orElseThrow();
-        }else
+        } else
             return cleanerRepo.findById(cleanerId).orElseThrow();
     }
 
@@ -42,8 +43,14 @@ public class CleanerService {
     }
 
     public Cleaner updateCleanerById(int id, Cleaner cleaner, Authentication auth) {
-        int cleanerId = cleanerId(auth);
-        Cleaner existingCleaner = cleanerRepo.findById(cleanerId).orElseThrow();
+
+        Cleaner existingCleaner;
+        if (((Cleaner) auth.getPrincipal()).getRoles().contains(Role.ADMIN)) {
+            existingCleaner = cleanerRepo.findById(id).orElseThrow();
+        } else {
+            int cleanerId = cleanerId(auth);
+            existingCleaner = cleanerRepo.findById(cleanerId).orElseThrow();
+        }
 
 
         if (cleaner != null) {
@@ -62,9 +69,8 @@ public class CleanerService {
             if (!cleaner.getPassword().equals("")) {
                 existingCleaner.setPassword(cleaner.getPassword());
             }
-        return cleanerRepo.save(existingCleaner);
-        }
-        else{
+            return cleanerRepo.save(existingCleaner);
+        } else {
             return null;
         }
 
