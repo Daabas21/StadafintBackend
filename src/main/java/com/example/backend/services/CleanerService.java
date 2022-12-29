@@ -77,4 +77,13 @@ public class CleanerService {
     public List<Cleaner> findAllCleaners() {
         return cleanerRepo.findAll();
     }
+
+    public Booking updateBookingByBookingId(int id) {
+
+        Booking booking = bookingRepo.findById(id).orElseThrow();
+
+        booking.setStatus("Approved");
+
+        return bookingRepo.save(booking);
+    }
 }
