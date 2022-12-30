@@ -19,11 +19,11 @@ public class CustomerService {
     @Autowired
     BookingRepo bookingRepo;
 
-    public int customerId(Authentication auth){
+    public int customerId(Authentication auth) {
         String customerEmail = ((Customer) auth.getPrincipal()).getEmail();
         Customer customer = customerRepo.findCustomerByEmail(customerEmail).orElseThrow();
 
-        return  customer.getId();
+        return customer.getId();
     }
 
     public List<Customer> findAllCustomers() {
@@ -47,9 +47,20 @@ public class CustomerService {
 
     public Customer updateCustomerById(int id, Customer customer, Authentication auth) {
 
-        int customerId = customerId(auth);
-        Customer existingCustomer = customerRepo.findById(customerId).orElseThrow();
+        Customer existingCustomer = null;
 
+        try{
+
+        String customerRole = ((Customer) auth.getPrincipal()).getRoles();
+        if (customerRole.equals("CUSTOMER")) {
+            int customerId = customerId(auth);
+            existingCustomer = customerRepo.findById(customerId).orElseThrow();
+        }
+        }catch(Exception e) {
+            existingCustomer = customerRepo.findById(id).orElseThrow();
+            }
+
+        assert existingCustomer != null;
         if (customer != null) {
             if (!customer.getName().equals("")) {
                 existingCustomer.setName(customer.getName());
@@ -66,17 +77,17 @@ public class CustomerService {
             if (!customer.getPassword().equals("")) {
                 existingCustomer.setPassword(customer.getPassword());
             }
-        }
-
         return customerRepo.save(existingCustomer);
-
+        }else{
+            return null;
+        }
     }
 
     public List<Booking> adminFindCustomerBookingsById(int id) {
         return bookingRepo.findByCustomerId(id);
     }
 
-    public List<Booking> findCustomerBookingsById(Authentication auth){
+    public List<Booking> findCustomerBookingsById(Authentication auth) {
 
         int customerId = customerId(auth);
         return bookingRepo.findByCustomerId(customerId);
