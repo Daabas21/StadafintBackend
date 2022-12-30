@@ -88,7 +88,7 @@ public class CleanerService {
 
         Booking booking = bookingRepo.findById(id).orElseThrow();
 
-        booking.setStatus("Approved");
+        booking.setStatus("Performed");
 
         return bookingRepo.save(booking);
     }

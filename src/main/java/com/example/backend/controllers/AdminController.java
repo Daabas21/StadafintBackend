@@ -28,7 +28,7 @@ public class AdminController {
         this.customerService = customerService;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/cleaner/{id}")
     public Cleaner updateCleanerById(@PathVariable int id, @RequestBody Cleaner cleaner, Authentication auth) {
         return cleanerService.updateCleanerById(id, cleaner, auth);
     }
@@ -82,6 +82,11 @@ public class AdminController {
     @GetMapping("/customer/{id}")
     public Customer findCustomerById(@PathVariable int id, Authentication auth) {
         return customerService.findById(id, auth);
+    }
+
+    @PutMapping("/customer/{id}")
+    public Customer updateCustomerById(@PathVariable int id,@RequestBody Customer customer, Authentication auth){
+        return customerService.updateCustomerById(id, customer, auth);
     }
 
     @GetMapping("/customer/{id}/booking")
