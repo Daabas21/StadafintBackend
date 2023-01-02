@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -29,8 +30,7 @@ public class CleanerService {
 
     public Cleaner findById(int id, Authentication auth) {
         int cleanerId = cleanerId(auth);
-        System.out.println(cleanerId);
-//
+
         if (id == cleanerId) {
             return cleanerRepo.findById(id).orElseThrow();
         } else
@@ -91,5 +91,11 @@ public class CleanerService {
         booking.setStatus("Performed");
 
         return bookingRepo.save(booking);
+    }
+
+    public List<Booking> findCleanerBookingByDate(int id, Date startDate, Date endDate, Authentication auth) {
+
+        int cleanerId = cleanerId(auth);
+        return bookingRepo.findByCleanerIdAndDateBetweenIgnoreCase(cleanerId, startDate, endDate);
     }
 }
