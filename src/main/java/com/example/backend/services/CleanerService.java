@@ -98,4 +98,10 @@ public class CleanerService {
         int cleanerId = cleanerId(auth);
         return bookingRepo.findByCleanerIdAndDateBetweenIgnoreCase(cleanerId, startDate, endDate);
     }
+
+    public List<Booking> findCleanerBookingAuth(Authentication auth) {
+
+        int cleanerId = cleanerId(auth);
+        return  bookingRepo.findByCleanerId(cleanerId);
+    }
 }
