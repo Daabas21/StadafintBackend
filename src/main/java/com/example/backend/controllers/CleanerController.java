@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -42,5 +43,13 @@ public class CleanerController {
     @PutMapping("/{id}/booking")
     public  Booking updateBookingByBookingId(@PathVariable int id) {
         return cleanerService.updateBookingByBookingId(id);
+    }
+
+    @GetMapping("/{id}/date")
+    public List<Booking> findCleanerBookingByDate(@PathVariable int id,
+                                                  @RequestParam Date startDate,
+                                                  @RequestParam Date endDate,
+                                                  Authentication auth) {
+        return cleanerService.findCleanerBookingByDate(id, startDate, endDate, auth);
     }
 }
