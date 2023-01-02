@@ -36,8 +36,8 @@ public class CleanerController {
     }
 
     @GetMapping("/{id}/booking")
-    public List<Booking> findCleanerBooking(@PathVariable int id){
-        return cleanerService.findCleanerBooking(id);
+    public List<Booking> findCleanerBookingAuth(Authentication auth, @PathVariable int id){
+        return cleanerService.findCleanerBookingAuth(auth);
     }
 
     @PutMapping("/{id}/booking")
